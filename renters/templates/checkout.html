@@ -1,0 +1,209 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<style>
+#last {
+  padding-left:10vw;
+}
+</style>
+<!--================Home Banner Area =================-->
+<!-- breadcrumb start-->
+<section class="breadcrumb breadcrumb_bg">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="breadcrumb_iner">
+          <div class="breadcrumb_iner_item">
+            <h2>Checkout</h2>
+            <p>Home <span>-</span> Shop Single</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- breadcrumb start-->
+
+<!--================Checkout Area =================-->
+<section class="checkout_area padding_top">
+  <div class="container">
+    <!-- <div class="cupon_area">
+      <div class="check_title">
+        <h2>
+          Have a coupon?
+          <a href="#">Click here to enter your code</a>
+        </h2>
+      </div>
+      <input type="text" placeholder="Enter coupon code" />
+      <a class="tp_btn" href="#">Apply Coupon</a>
+    </div> -->
+    <div class="billing_details">
+      <div class="row">
+        <div class="col-lg-8">
+          <h3>Billing Details</h3>
+          <form
+          
+            action="{% url 'cnforder' %}"
+            method="post"
+            novalidate="novalidate"
+          >
+          {% csrf_token %}
+            <div class="col-md-6 form-group p_star">
+              <input type="text" class="form-control" id="first" name="first_name" />
+              <span class="placeholder" data-placeholder="First name"></span>
+            </div>
+            <div class="col-md-6 form-group p_star">
+              <input type="text" class="form-control" id="last" name="last_name" />
+              <span class="placeholder" data-placeholder="Last name"></span>
+            </div>
+            <div class="col-md-6 form-group p_star">
+              <input
+                type="number"
+                class="form-control"
+                id="number"
+                name="phone_number"
+              />
+              <span class="placeholder" data-placeholder="Phone number"></span>
+            </div>
+            <div class="col-md-6 form-group p_star">
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+              />
+              <span class="placeholder" data-placeholder="Email Address"></span>
+            </div>
+            <div class="col-md-12 form-group p_star"></div>
+            <div class="col-md-12 form-group p_star">
+              <input type="text" class="form-control" id="add1" name="address_line_1" />
+              <span
+                class="placeholder"
+                data-placeholder="Address line 01"
+              ></span>
+            </div>
+            <div class="col-md-12 form-group p_star">
+              <input type="text" class="form-control" id="add2" name="address_line_2" />
+              <span
+                class="placeholder"
+                data-placeholder="Address line 02"
+              ></span>
+            </div>
+            <div class="col-md-12 form-group p_star">
+              <input type="text" class="form-control" id="city" name="city" />
+              <span class="placeholder" data-placeholder="Town/City"></span>
+            </div>
+            <div class="col-md-12 form-group p_star">
+              <div class="col-75">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="state"
+                  name="state"
+                />
+                <span class="placeholder" data-placeholder="State"></span>
+                <!-- <select id="country" name="country">
+                  <option value="australia">Australia</option>
+                  <option value="canada">Canada</option>
+                  <option value="usa">USA</option>
+                </select> -->
+              </div>
+            </div>
+            <div class="col-md-12 form-group p_star"></div>
+            <div class="col-md-12 form-group">
+              <input
+                type="text"
+                class="form-control"
+                id="zip"
+                name="zipcode"
+                placeholder="Postcode/ZIP"
+              />
+            </div>
+            <div class="col-md-12 form-group">
+              <div class="creat_account">
+                <h3>Shipping Details</h3>
+                <input type="checkbox" id="f-option3" name=" ship_to_different_address" />
+                <label for="f-option3">Ship to a different address?</label>
+              </div>
+              <textarea
+                class="form-control"
+                name="order_notes"
+                id="message"
+                rows="1"
+                placeholder="Order Notes"
+              ></textarea>
+            </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="order_box">
+            <h2>Your Order</h2>
+            <ul class="list">
+              <li>
+                <a href="#"
+                >Product
+                <span>Total</span>
+              </a>
+            </li>
+            {% for or in order.items.all %}
+            <li>
+              {{or.item.title}}
+              <span id="middle">x {{or.quantity}}</span>
+              <span id="last" >${{or.item.price}}</span>
+            </li>
+            {% endfor %}
+            <ul class="list list_2">
+              <li>
+                Subtotal
+                <span id="last">${{order.get_total}}</span>
+              </li>
+              <li>
+                <a href="#"
+                  >Shipping
+                  <span>Flat rate: $50.00</span>
+                </a>
+              </li>
+              <li>
+                <a href="#"
+                  >Total
+                  <span>${{order.effective_price}}</span>
+                </a>
+              </li>
+            </ul>
+            <div class="payment_item">
+              <div class="radion_btn">
+                <input type="radio" id="f-option5" name="selector" />
+                <label for="f-option5">Check payments</label>
+                <div class="check"></div>
+              </div>
+              <p>
+                Please send a check to Store Name, Store Street, Store Town,
+                Store State / County, Store Postcode.
+              </p>
+            </div>
+            <div class="payment_item active">
+              <div class="radion_btn">
+                <input type="radio" id="f-option6" name="selector" />
+                <label for="f-option6">Paypal </label>
+                <img src="img/product/single-product/card.jpg" alt="" />
+                <div class="check"></div>
+              </div>
+              <p>
+                Please send a check to Store Name, Store Street, Store Town,
+                Store State / County, Store Postcode.
+              </p>
+            </div>
+            <div class="creat_account">
+              <input type="checkbox" id="f-option4" name="selector" />
+              <label for="f-option4">I’ve read and accept the </label>
+              <a href="#">terms & conditions*</a>
+            </div>
+            <button type="submit" class="btn_3">Proceed to Paypal</button >
+          </div>
+        </div>
+      </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+<!--================End Checkout Area =================-->
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %} {% block content %}
+
+<!--================register_part Area =================-->
+<section class="login_part padding_top">
+      <div class="col-lg-6 col-md-6">
+        <div class="login_part_form">
+          <div class="login_part_form_iner">
+            <div class="container">
+                <h2>Product Details Form</h2>
+                {% if success_message %}
+                        <div class="alert alert-success" role="alert">
+                          <script>alert("{{ success_message }}")</script>
+                            
+                        </div>
+                    {% endif %}
+                <form action="#" enctype="multipart/form-data" method="post" class="needs-validation" novalidate>
+                  {% csrf_token %}
+                    <div class="form-group">
+                        <label for="Item name">Item Name:</label>
+                        <input type="text" id="name" name="itemname" class="form-control" required>
+                        <div class="invalid-feedback">Please enter a name.</div>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="price">Price:</label>
+                        <input type="number" id="price" name="price" min="0" step="0.01" class="form-control" required>
+                        <div class="invalid-feedback">Please enter a valid price.</div>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" rows="4" cols="50" class="form-control" required></textarea>
+                        <div class="invalid-feedback">Please enter a description.</div>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="image">Image Upload:</label>
+                        <input type="file" id="image" name="image" class="form-control-file" required>
+                        <div class="invalid-feedback">Please upload an image.</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Availability:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="availability" id="inStockRadio" value="IS" checked>
+                            <label class="form-check-label" for="inStockRadio">In Stock</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="availability" id="outOfStockRadio" value="OS">
+                            <label class="form-check-label" for="outOfStockRadio">Out of Stock</label>
+                        </div>
+                    </div>
+        
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>        
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--================login_part end =================-->
+{% endblock %}
